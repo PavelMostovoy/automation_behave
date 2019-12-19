@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9fe21051-e16a-4e4b-b68e-3d215933bae1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/automation_behave.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,17 +52,26 @@
       <option name="presentableId" value="Default" />
       <updated>1576763574198</updated>
     </task>
+    <task id="LOCAL-00001" summary="commit">
+      <created>1576764101963</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1576764101963</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="361" y="0" key="CommitChangelistDialog2" timestamp="1576763719104">
+    <state x="361" y="0" key="CommitChangelistDialog2" timestamp="1576764101282">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="361" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1576763719104" />
+    <state x="361" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1576764101282" />
     <state x="0" y="0" key="SettingsEditor" timestamp="1576763659372">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
