@@ -2,8 +2,6 @@ from behave import *
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-
-
 @given('website')
 def step_impl(context):
     context.browser = webdriver.Chrome()
