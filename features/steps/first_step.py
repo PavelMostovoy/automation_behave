@@ -18,3 +18,10 @@ def step_impl(context):
            == context.browser.find_element(By.CLASS_NAME, 'fs-title.ta-center').text
     context.browser.quit()
 
+
+@step("my first step")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    raise NotImplementedError(u'STEP: And my first step')
