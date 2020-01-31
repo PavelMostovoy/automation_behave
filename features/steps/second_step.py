@@ -7,9 +7,9 @@ from helpers.sut import Sut
 def step_impl(context):
     context.browser = Sut("chrome", options=True).get_web_driver()
     context.browser.get(
-        'https://dev.svetlitsky.photography/?' \
+        'https://dev.svetlitsky.photography/?'
         'fbclid=IwAR1FEQsB4FMMhBPCyVxNITae'
-        'PrvEYlmDMdcfn8NT_JemXrE33oi0QsHV3cg' \
+        'PrvEYlmDMdcfn8NT_JemXrE33oi0QsHV3cg'
         )
     context.browser.implicitly_wait(5)
 
