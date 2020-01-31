@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from helpers.sut import Sut
 
+
 @given('website')
 def step_impl(context):
     context.browser = Sut("chrome", options=True).get_web_driver()
