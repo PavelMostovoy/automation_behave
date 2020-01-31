@@ -8,7 +8,8 @@ def step_impl(context):
     context.browser = Sut("chrome", options=True).get_web_driver()
     context.browser.get(
         'https://dev.svetlitsky.photography/?' \
-        'fbclid=IwAR1FEQsB4FMMhBPCyVxNITaePrvEYlmDMdcfn8NT_JemXrE33oi0QsHV3cg' \
+        'fbclid=IwAR1FEQsB4FMMhBPCyVxNITae'
+        'PrvEYlmDMdcfn8NT_JemXrE33oi0QsHV3cg' \
         )
     context.browser.implicitly_wait(5)
 
@@ -16,7 +17,8 @@ def step_impl(context):
 @then('looking for title')
 def step_impl(context):
     assert 'Newborn Photography In Toronto & GTA' \
-           == context.browser.find_element(By.CLASS_NAME, 'fs-title.ta-center').text
+           == context.browser.find_element(By.CLASS_NAME,
+                                           'fs-title.ta-center').text
     context.browser.quit()
 
 
