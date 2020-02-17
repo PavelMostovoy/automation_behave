@@ -6,6 +6,9 @@ import os
 import subprocess
 import time
 
+from helpers.sut import Sut
+from utilites.env import Env
+
 
 def before_all(context):
     docker_list = subprocess.Popen('docker images',
@@ -67,11 +70,23 @@ def after_feature(context, feature):
 
 
 def before_scenario(context, scenario):
-    pass
+    client_pull = [Env.vars['chrome'], Env.vars['firefox']]
+    context.clients = set()
+    for client in client_pull:
+        for step in scenario.steps:
+            if client in step.name:
+                context.clients.add(client)
+
+    for client in context.clients:
+        print("Getting webdriver for {}".format(client))
+        setattr(context, client, Sut(client, options=True).get_web_driver())
+        print("Webdriver for {} successfully loaded".format(client))
 
 
 def after_scenario(context, scenario):
-    pass
+    for item in context.clients:
+        client = getattr(context, item)
+        client.quit()
 
 
 def before_step(context, step):

@@ -1,6 +1,6 @@
 from behave import *
-from selenium import webdriver
 from selenium.webdriver.common.by import By
+
 from helpers.sut import Sut
 
 
@@ -28,3 +28,11 @@ def step_impl(context):
     :type context: behave.runner.Context
     """
     raise NotImplementedError(u'STEP: And my first step')
+
+
+@then("Open New Window")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    raise NotImplementedError(u'STEP: Then Open New Window')
