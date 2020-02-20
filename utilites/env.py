@@ -7,4 +7,5 @@ class Env:
     vars = {
         'chrome': 'chrome',
         'firefox': 'firefox',
+        'wait_time': 1,
     }
