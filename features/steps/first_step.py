@@ -24,7 +24,7 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    raise NotImplementedError(u'STEP: And my first step')
+    return True
 
 
 @then("Open New Window")

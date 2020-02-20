@@ -44,11 +44,11 @@ def before_all(context):
     os.system("docker run -d -p 4444:4444 --name selenium-hub selenium/hub")
     time.sleep(5)
     os.system(
-        "docker run -d --link selenium-hub:hub -p 5901:5900 --name "
+        "docker run -d --link selenium-hub:hub -p 5901:5901 --name "
         "selenium-node-firefox "
         " selenium/node-firefox-debug")
     os.system(
-        "docker run -d --link selenium-hub:hub -p 5900:5900 --name "
+        "docker run -d --link selenium-hub:hub -p 5902:5902 --name "
         "selenium-node-chrome "
         "selenium/node-chrome-debug:3.141.59-mercury ")
     time.sleep(5)
