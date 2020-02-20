@@ -1,24 +1,21 @@
 from behave import *
-from selenium import webdriver
 from selenium.webdriver.common.by import By
-from helpers.sut import Sut
 
+from helpers.sut import Sut
 
 @given('website')
 def step_impl(context):
     context.browser = Sut("chrome", options=True).get_web_driver()
-    context.browser.get('https://stackoverflow.com/')
+    context.browser.get('https://dev.svetlitsky.photography/')
     context.browser.implicitly_wait(5)
 
 
 @then('looking for title')
 def step_impl(context):
-    assert 'We build products that empower developers and connect them' \
-           ' to solutions that' \
-           ' enable productivity, growth,' \
-           ' and discovery.' \
-           == context.browser.find_element(By.CLASS_NAME,
-                                           'fs-title.ta-center').text
+    assert 'Newborn Photography In Toronto & GTA\n' \
+           'In the comfort of Your Home' \
+           == context.browser.find_element(By.XPATH, '/html[1]' \
+            '/body[1]/div[1]/section[1]/div[1]/h1[1]').text
     context.browser.quit()
 
 
@@ -27,4 +24,12 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    raise NotImplementedError(u'STEP: And my first step')
+    return True
+
+
+@then("Open New Window")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    raise NotImplementedError(u'STEP: Then Open New Window')

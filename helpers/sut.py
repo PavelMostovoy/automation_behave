@@ -12,7 +12,7 @@ class Sut:
         self.options = options
         self.diemsions = (720, 1280)
         self.desired_capabilities = {
-            "browserName": "chrome",
+            "browserName": client,
             "version": "",
             "platform": "ANY",
         }
