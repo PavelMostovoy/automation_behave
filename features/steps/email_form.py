@@ -75,14 +75,13 @@ def step_impl(context, message, element, browser):
     :type browser: str
     """
     client = getattr(context, browser)
-    element = client.find_element(By.XPATH, element)
+    find_message = client.find_element(By.XPATH, element)
     attach(
         client.get_screenshot_as_png(),
         name="screenshot",
         attachment_type=AttachmentType.PNG
     )
-    client.implicitly_wait(5)
-    actual_message = element.get_attribute('innerHTML')
+    actual_message = find_message.text
     assert actual_message == message,\
         f"Message is '{actual_message}' but expected should be '{message}'"
     print(f"Message '{actual_message}' successfully verified")
