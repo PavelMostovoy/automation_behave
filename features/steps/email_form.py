@@ -4,8 +4,9 @@ from allure_commons._allure import attach
 from allure_commons.types import AttachmentType
 from behave import *
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from utilites.env import Env
-
 
 use_step_matcher("re")
 
@@ -75,14 +76,17 @@ def step_impl(context, message, element, browser):
     :type browser: str
     """
     client = getattr(context, browser)
-    find_message = client.find_element(By.XPATH, element)
+    WebDriverWait(client, Env.vars['driver_wait']).until(
+        EC.text_to_be_present_in_element((By.XPATH, element), f'{message}')
+    )
+    find_text = client.find_element(By.XPATH, element)
     attach(
         client.get_screenshot_as_png(),
         name="screenshot",
         attachment_type=AttachmentType.PNG
     )
-    actual_message = find_message.text
-    assert actual_message == message,\
+    actual_message = find_text.text
+    assert actual_message == message, \
         f"Message is '{actual_message}' but expected should be '{message}'"
     print(f"Message '{actual_message}' successfully verified")
     time.sleep(Env.vars['wait_time'])
