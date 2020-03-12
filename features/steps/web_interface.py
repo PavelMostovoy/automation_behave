@@ -46,6 +46,28 @@ def step_impl(context, data, field, browser):
     time.sleep(Env.vars['wait_time'])
 
 
+@when("I change (?P<reply_form>.+) and fill up (?P<data>.+) in (?P<field>.+) using (?P<browser>.+)")
+def step_impl(context, reply_form, data, field, browser):
+    """
+    :type context: behave.runner.Context
+    :type reply_form: str
+    :type data: str
+    :type field: str
+    :type browser: str
+    """
+    client = getattr(context, browser)
+    element = client.find_element(By.XPATH, reply_form)
+    assert element, "Element not found"
+    element.click()
+    print("Element {} found and reply form successfully changed".format(reply_form))
+    element = client.find_element(By.XPATH, field)
+    assert element, "Element not found"
+    print("Element {} found".format(field))
+    element.send_keys(data)
+    print("Data {} successfully filled up".format(data))
+    time.sleep(Env.vars['wait_time'])
+
+
 @when("I press the (?P<button>.+) using (?P<browser>.+)")
 def step_impl(context, button, browser):
     """
@@ -73,13 +95,13 @@ def step_impl(context, message, element, browser):
     WebDriverWait(client, Env.vars['driver_wait']).until(
         EC.text_to_be_present_in_element((By.XPATH, element), '{}'.format(message))
     )
-    find_text = client.find_element(By.XPATH, element)
+    element = client.find_element(By.XPATH, element)
     attach(
         client.get_screenshot_as_png(),
         name="screenshot",
         attachment_type=AttachmentType.PNG
     )
-    actual_message = find_text.text
+    actual_message = element.text
     assert actual_message == message, \
         "Message is '{}' but expected should be '{}' ".format(actual_message,
                                                               message)
