@@ -29,32 +29,18 @@ def step_impl(context, link, browser):
     )
 
 
-@when("I fill (?P<data>.+) in (?P<field>.+) using (?P<browser>.+)")
-def step_impl(context, data, field, browser):
-    """
-    :type context: behave.runner.Context
-    :type data: str
-    :type field: str
-    :type browser: str
-    """
-    client = getattr(context, browser)
-    element = client.find_element(By.XPATH, field)
-    assert element, "Element not found"
-    print("Element {} found".format(field))
-    element.send_keys(data)
-    print("Data {} successfully filled".format(data))
-    time.sleep(Env.vars['wait_time'])
-
-
-@when("I change (?P<reply_form>.+) and fill up (?P<data>.+) in (?P<field>.+) using (?P<browser>.+)")
-def step_impl(context, reply_form, data, field, browser):
+@step("I choose (?P<reply_form>.+) and fill (?P<user>.+) contact details in (?P<field>.+) using (?P<browser>.+)")
+def step_impl(context, reply_form, user, field, browser):
     """
     :type context: behave.runner.Context
     :type reply_form: str
-    :type data: str
+    :type user: str
     :type field: str
     :type browser: str
     """
+    user_id = context.model.users[user]
+    user_phone = user_id.phone
+    user_email = user_id.e_mail
     client = getattr(context, browser)
     element = client.find_element(By.XPATH, reply_form)
     assert element, "Element not found"
@@ -63,12 +49,34 @@ def step_impl(context, reply_form, data, field, browser):
     element = client.find_element(By.XPATH, field)
     assert element, "Element not found"
     print("Element {} found".format(field))
-    element.send_keys(data)
-    print("Data {} successfully filled up".format(data))
+    if reply_form == '//*[@id="field-reply"]/div/button[2]':
+        element.send_keys(user_email)
+        print("Data {} successfully filled up".format(user_email))
+    else:
+        element.send_keys(user_phone)
+        print("Data {} successfully filled up".format(user_phone))
     time.sleep(Env.vars['wait_time'])
 
 
-@when("I press the (?P<button>.+) using (?P<browser>.+)")
+@step("I leave (?P<user>.+) comment in (?P<comments_field>.+) using (?P<browser>.+)")
+def step_impl(context, user, comments_field, browser):
+    """
+    :type context: behave.runner.Context
+    :type user: str
+    :type comments_field: str
+    :type browser: str
+    """
+    user_id = context.model.users[user]
+    user_comment = user_id.comments
+    client = getattr(context, browser)
+    element = client.find_element(By.XPATH, comments_field)
+    assert element, "Element not found"
+    element.send_keys(user_comment)
+    print("Comment {} successfully left".format(user_comment))
+    time.sleep(Env.vars['wait_time'])
+
+
+@step("I press the (?P<button>.+) using (?P<browser>.+)")
 def step_impl(context, button, browser):
     """
     :type context: behave.runner.Context
