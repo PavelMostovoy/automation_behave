@@ -5,3 +5,5 @@ virtualenvironment, idea settings e.t.c
 Victor's any string
 
 My string
+
+Any string from BaRRmaley

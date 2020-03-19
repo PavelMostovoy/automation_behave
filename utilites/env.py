@@ -8,4 +8,5 @@ class Env:
         'chrome': 'chrome',
         'firefox': 'firefox',
         'wait_time': 1,
+        'driver_wait': 10,
     }
