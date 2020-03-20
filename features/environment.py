@@ -5,12 +5,34 @@
 import os
 import subprocess
 import time
+import logging.config
+import yaml
 
 from helpers.sut import Sut
 from utilites.env import Env
 
+with open('./helpers/log_config.yaml', 'r') as f:
+    config = yaml.safe_load(f.read())
+    logging.config.dictConfig(config)
+
+_LOGGER = logging.getLogger("MAIN")
+
+
+def define_log_handler(path,
+                       log_format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"):
+    """
+    File handler for the logger
+    :param path: the path of the log file
+    :param log_format, formatting logging
+    """
+    handler = logging.FileHandler(path, 'a')
+    handler.setFormatter(logging.Formatter(log_format))
+
+    return handler
+
 
 def before_all(context):
+    _LOGGER.info("test stared")
     docker_list = subprocess.Popen('docker images',
                                    shell=True,
                                    stdin=None,
@@ -32,7 +54,7 @@ def before_all(context):
                                      stdout=subprocess.PIPE,
                                      stderr=subprocess.PIPE)
 
-    print("Cleanup Docker images with results: \n{} \n{}\n{} \n{} \n{} \n{} "
+    _LOGGER.info("Cleanup Docker images with results: \n{} \n{}\n{} \n{} \n{} \n{} "
           "\n{}".format(docker_list.stdout.read().decode(),
                         remove_hub.stdout.read().decode(),
                         remove_hub.stderr.read().decode(),
@@ -62,14 +84,31 @@ def after_all(context):
 
 
 def before_feature(context, feature):
-    pass
+    _LOGGER.info("Feature '{}' started".format(feature.name))
+    context.log_folder = feature.name
+    # Create target Directory if don't exist
+    log_directory = "logs/" + feature.name
+    if not os.path.exists(log_directory):
+        os.makedirs(log_directory)
+        _LOGGER.info("Directory '" + log_directory + "' Created ")
+    else:
+        _LOGGER.info("Directory '" + log_directory + "' already exists")
 
 
 def after_feature(context, feature):
-    pass
+    _LOGGER.info("Feature '{}' finished".format(feature.name))
+    context.log_folder = None
 
 
 def before_scenario(context, scenario):
+    # Log handler will be used if exist or created new one
+    _logger = logging.getLogger("RUN")
+    handler = define_log_handler(
+        "logs/" + context.log_folder + "/" + scenario.name + ".log")
+    _logger.addHandler(handler)
+    _logger.info("Logger started")
+    context.logger = _logger
+    context.log_handler = handler
     client_pull = [Env.vars['chrome'], Env.vars['firefox']]
     context.clients = set()
     for client in client_pull:
@@ -84,6 +123,8 @@ def before_scenario(context, scenario):
 
 
 def after_scenario(context, scenario):
+    context.logger = None
+    context.log_handler = None
     for item in context.clients:
         client = getattr(context, item)
         client.quit()

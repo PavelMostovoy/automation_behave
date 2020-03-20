@@ -3,7 +3,6 @@
 # -----------------------------------------------------------------------------
 
 
-
 class DataModel:
     """
     Data
@@ -14,7 +13,13 @@ class DataModel:
         self.users = dict()
 
     def add_user(self, name: str, phone: str, e_mail: str, comments: str,):
+        """
 
+        :param name:
+        :param phone:
+        :param e_mail:
+        :param comments:
+        """
         for user in self.users:
             assert name != self.users[user].name, "User name not unique"
         self.users[name] = User(name, phone, e_mail, comments)

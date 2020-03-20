@@ -3,3 +3,4 @@ behave
 pycodestyle
 allure-behave
 allure-python-commons
+PyYAML

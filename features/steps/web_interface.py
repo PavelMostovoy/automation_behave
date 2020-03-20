@@ -18,7 +18,8 @@ def step_impl(context, link, browser):
     :type link: str
     :type browser: str
     """
-    print('Opening {} in {}'.format(link, browser))
+    _logger = context.logger
+    _logger.info('Opening {} in {}'.format(link, browser))
     client = getattr(context, browser)
     client.get(link)
     time.sleep(Env.vars['wait_time'])
